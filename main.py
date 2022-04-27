@@ -23,11 +23,16 @@ class TrainsProcessor:
             train_times_text = raw_train_times.find(id='platform_1_g').get_text()
         elif terminates_at == 'south-shields':
             train_times_text = raw_train_times.find(id='platform_1_y').get_text()
+        elif terminates_at == 'airport':
+            train_times_text = raw_train_times.find(id='platform_2_g').get_text()
+        elif terminates_at == 'st-james':
+            train_times_text = raw_train_times.find(id='platform_2_y').get_text()
         elif terminates_at == 'any':
             train_times_text_g = raw_train_times.find(id='platform_1_g').get_text()
             train_times_text_y = raw_train_times.find(id='platform_1_y').get_text()
             train_times_text = train_times_text_g + train_times_text_y
         return train_times_text
+
 
     # This strips 'this train terminates at X' and any other characters/symbols from being added
     # to the list of train times. Converts times to datetime format for easier sorting and modification.
@@ -57,7 +62,7 @@ def get_current_time():
 if __name__ == '__main__':
 
     train_times = TrainsProcessor()
-    train_time_list = train_times.retrieve('central-station', 'any')
+    train_time_list = train_times.retrieve('ilford-road', 'any')
 
     print('Current Time: ' + get_current_time())
     print('The next train is at: ' + train_times.closest_time(train_time_list))
